@@ -21,8 +21,8 @@ namespace HighChartApp.Api.Controllers
             else if (user.Claims == null) TemporalUser = null;
             else if (user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).Count() > 0)
             {
-                TemporalUser.Id = int.Parse(user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).First().Value);
-                TemporalUser.Username = user.Claims.Where(x => x.Type == ClaimTypes.Name).First().Value;
+                TemporalUser.Id = user.Claims.Where(x => x.Type == ClaimTypes.NameIdentifier).First().Value;
+                TemporalUser.UserName = user.Claims.Where(x => x.Type == ClaimTypes.Name).First().Value;
                 TemporalUser.Email = user.Claims.Where(x => x.Type == ClaimTypes.Email).First().Value;
                 TemporalUser.Role = int.Parse(user.Claims.Where(x => x.Type == ClaimTypes.Role).First().Value);
             }

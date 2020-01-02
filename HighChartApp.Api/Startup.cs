@@ -17,6 +17,8 @@ using HighChartApp.Api.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using HighChartApp.Api.Services;
+using HighChartApp.Api.Repository;
 
 namespace HighChartApp.Api
 {
@@ -58,6 +60,8 @@ namespace HighChartApp.Api
             services.Configure<AppSettings>(Configuration.GetSection(nameof(AppSettings)));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IUserRepository, UserRepository>();
             AddJwtAuthentication(services);
         }
 
@@ -74,15 +78,15 @@ namespace HighChartApp.Api
             {
                 x.RequireHttpsMetadata = false;
                 x.SaveToken = true;
-                x.Audience = jwtSettingOptions["Audience"];
+                //x.Audience = jwtSettingOptions["Audience"];
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettingOptions["Key"])),
-                    ValidateIssuer = true,
-                    ValidIssuer = jwtSettingOptions["Issuer"],
-                    ValidateAudience = true,
-                    ValidAudience = jwtSettingOptions["Audience"],
+                    ValidateIssuer = false,
+                    //ValidIssuer = jwtSettingOptions["Issuer"],
+                    ValidateAudience = false,
+                    //ValidAudience = jwtSettingOptions["Audience"],
                     RequireExpirationTime = true,
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero

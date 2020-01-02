@@ -34,10 +34,10 @@ namespace HighChartApp.Api.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, identityUser.Username),
-                    new Claim(ClaimTypes.Email, identityUser.Email),
+                    new Claim(ClaimTypes.Name, identityUser.UserName),
+                    //new Claim(ClaimTypes.Email, identityUser.Email),
                     new Claim(ClaimTypes.NameIdentifier, identityUser.Id.ToString()),
-                    new Claim(ClaimTypes.Role, identityUser.Role.ToString() )
+                    //new Claim(ClaimTypes.Role, identityUser.Role.ToString() )
                 }),
                 Issuer = config.Issuer,
                 Audience = config.Audience,
